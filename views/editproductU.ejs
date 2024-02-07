@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>แก้ไขข้อมูลสินค้า</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;500&display=swap" rel="stylesheet">
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/10021/10021404.png" />
+  </head>
+
+  <body style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-8 mx-auto" >
+              <a href="/product">
+                <button type="button" class="btn btn-outline-primary" style="font-family: 'Prompt', sans-serif; font-size: 14px;">กลับ</button>
+                </button>
+              </a>                         
+              <br>
+              <br>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/product">สินค้า</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">แก้ไขข้อมูลสินค้า</li>
+                </ol>
+              </nav>
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                    <i class="mdi mdi-border-color"></i>
+                    <h1 style="font-family: 'Prompt', sans-serif; font-size: 18px;">แก้ไขข้อมูลสินค้า</h1>
+                  </div>
+                </div>
+                <form action="products/updateU" method="POST" class="pt-3" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <div class="image-container">
+                      <img src="/images/products/<%= product.image %>" class="img-fluid circular-image">
+                    </div> 
+                    <div class="form-group">
+                    <label>File upload</label>
+                    <input type="file" name="image" id="image" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                      <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                      </span>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                      $(document).ready(function() {
+                        $('.file-upload-browse').on('click', function() {
+                          $('.file-upload-default').click();
+                        });
+                    
+                        $('.file-upload-default').on('change', function() {
+
+                          const fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
+                          $('.form-control.file-upload-info').val(fileName);
+                    
+                          // Preview the selected image
+                          const file = this.files[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                              $('.circular-image').attr('src', e.target.result);
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        });
+                      });
+                    </script>
+
+                    <style>
+                     .image-container {
+                     display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 200px;
+                    }
+                    .circular-image {
+                      width: 150px;
+                      height: 150px;
+                      border-radius: 50%;
+                      overflow: hidden;
+                      object-fit: cover;
+                    }
+
+                    </style>
+                  </div>
+                  <div class="form-group">
+                    <label for="productId">Product ID</label>
+                    <input type="text" class="form-control form-control-lg" id="update_id" name="update_id" value="<%= product._id %>" 
+                    style="font-family: 'Prompt', sans-serif; font-size: 14px;" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="productName">ชื่อสินค้า</label>
+                    <input type="text" class="form-control form-control-lg" id="productname" name="productname" value="<%= product.productname %>"
+                    style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="productType">ประเภทสินค้า</label>
+                    <select class="form-control form-control-lg" id="type" name="type"
+                    style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+                      <% productTypes.forEach(type => { %>
+                        <option value="<%= type %>"><%= type %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="productPrice">ราคา ฿</label>
+                    <input type="text" class="form-control form-control-lg" id="price" name="price" value="<%= product.price %>"
+                    style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+                  </div>
+                  <div class="mt-3">
+                    <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+  
+    <!-- ... (unchanged) ... -->
+
+ 
+    
+
+
+                
+              
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+  </body>
+</html>

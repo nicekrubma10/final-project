@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>สินค้า/เครื่องดื่ม</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/10021/10021404.png" />
+  </head>
+  <body style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+  
+    
+    <%- include('layout/headbarU') -%>
+      <div class="container-fluid page-body-wrapper">
+        <%- include('layout/navbarU') -%>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title" style="font-family: 'Prompt', sans-serif; font-size: 18px;">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                  <i class="mdi mdi-food-fork-drink"></i>
+                </span> จัดการข้อมูลพนักงาน
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="row">
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">  
+                        <a href="#" class="btn btn-block btn-lg btn-gradient-primary mt-1" data-bs-toggle="modal" data-bs-target="#addEmployeeModal" style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+                          + เพิ่มพนักงาน
+                        </a>
+                        </h4>
+                        <br>
+                    
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        
+
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">เพิ่มพนักงาน</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="employeeForm" action="users/insert" method="POST" enctype="multipart/form-data">
+                                    <div class="row" >
+                          <div class="col-md-6" >
+                              <!-- First Column -->
+                              <div class="mb-3">
+                                  <label for="employeeName" class="form-label">ชื่อบัญชีผู้ใช้</label>
+                                  <input type="text" class="form-control" name="username" id="username" required>
+                              </div>
+                              <div class="mb-3">
+                                  <label for="firstName" class="form-label">ชื่อ</label>
+                                  <input type="text" class="form-control" name="firstname" id="firstName" required>
+                              </div>
+                              <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                              <label for="employeePassword" class="form-label">รหัสผ่าน (เริ่มต้น)</label>
+                              <input type="password" class="form-control" name="password" id="password" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="lastName" class="form-label">นามสกุล</label>
+                            <input type="text" class="form-control" name="lastname" id="lastname" required>
+                        </div>
+                              <div class="mb-3">
+                                  <label for="phone" class="form-label">โทรศัพท์</label>
+                                  <input type="text" class="form-control" name="phone" id="phone" required>
+                              </div>
+                              <!-- Add more fields here for the second column -->
+                          </div>
+                      </div>
+                      <!-- Add any remaining fields outside the columns -->
+                      <div class="mb-3">
+                          <label for="address" class="form-label">ที่อยู่</label>
+                          <textarea class="form-control" name="address" id="address" rows="4" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label for="employeeStatus" class="form-label">สถานะ</label>
+                          <select class="form-select" name="role" id="role" required>
+                              <option value="พนักงาน">พนักงาน</option>
+                              <option value="เจ้าของร้าน">เจ้าของร้าน</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="image" class="form-label">รูปภาพ</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                      </div>       
+                      <button type="submit" class="btn btn-dark">บันทึก</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $('#employeeForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: 'users/insert',
+          data: new FormData(this),
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (response) {
+            if (response.error) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response.error,
+              });
+            } else if (response.success) {
+                Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `<div style="font-family: 'Prompt', sans-serif; font-size: 25px;">เพิ่ม ${response.username} เรียบร้อยแล้ว`,
+                html: `<div class="textsweet">ตำแหน่ง ${response.role} </div>`,
+                showConfirmButton: false,
+                timer: 2000,
+                willClose: () => {
+                window.location.href = '/employee';
+                }
+              });
+            }
+          },
+          error: function (error) {
+            console.error('Error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'ไม่สำเร็จ',
+              text: 'มี username นี้แล้ว',
+            });
+          }
+        });
+      });
+    });
+  </script>
+  
+
+                  <style>
+                    .textgoogle{
+                      font-family: 'Prompt', sans-serif; 
+                      font-size: 14px;
+                    }
+                    .textsweet{
+                      font-family: 'Prompt', sans-serif; 
+                      font-size: 20px;
+                    }
+                  </style>
+
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+                  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                  <script>
+                    $(document).ready(function() {
+                      $("#myForm").submit(function(event) {
+                        event.preventDefault();
+                        $.ajax({
+                          type: "POST",
+                          url: "/products/insertU",
+                          data: new FormData(this),
+                          contentType: false,
+                          cache: false,
+                          processData: false,
+                          success: function(response) {
+                            if (response.success) {
+                              Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: `<div style="font-family: 'Prompt', sans-serif; font-size: 25px;">เพิ่มสินค้าสำเร็จ`,
+                                html: `<div class="textsweet">เพิ่ม ${response.productname}${response.type} ราคา ${response.price} เรียบร้อยแล้ว</div>`,
+                                showConfirmButton: false,
+                                timer: 2000,
+                              });
+                            } else {
+                              Swal.fire({
+                                icon: "error",
+                                title: response.message || "An error occurred",
+                              });
+                            }
+                          },
+                          error: function(xhr, status, error) {
+                            console.error('AJAX Error:', error);
+                          }
+                        });
+                      });
+                    });
+                  </script>
+                                        
+                  <div class="form-group" style="margin-bottom: 10px;">
+                    <label for="searchInput">ค้นหาพนักงาน</label>
+                    <input type="text" class="form-control" id="searchInput" placeholder="พิมพ์ keyword เช่น (นายเคน)" style="font-family: 'Prompt', sans-serif; font-size: 14px;">
+                  </div>
+                                                              
+                  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                  <script>
+                      $(document).ready(function () {
+                          $('#searchInput').on('input', function () {
+                              var searchKeyword = $(this).val().toLowerCase();
+                              $('#productTableBody tr').each(function () {
+                                  var rowData = $(this).text().toLowerCase();
+                                  if (rowData.includes(searchKeyword)) {
+                                      $(this).show();
+                                  } else {
+                                      $(this).hide();
+                                  }
+                              });
+                          });
+                      });
+                  </script>
+                  
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">ลำดับ</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">รูปภาพ</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">ชื่อบัญชีผู้ใช้</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">ชื่อ-สกุล</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">สถานะ</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">Email</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">เบอร์โทรศัพท์</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">วันที่และเวลาที่เพิ่ม</th>
+                                <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">ข้อมูล</th>
+                                <!-- <th style="font-family: 'Prompt', sans-serif; font-size: 14px;">จัดการ</th> -->
+                                <!-- <th style="font-family: 'Prompt', sans-serif; font-size: 14px;"><% for (let i = 0; i < 25; i++) { %>&nbsp;<% } %>
+                                จัดการ
+                                </th> -->
+                            </tr>
+                        </thead>
+
+                        <style>
+                          .text{
+                            font-family: 'Prompt', sans-serif; font-size: 14px;
+                          }
+                        </style>
+                        
+                        <tbody id="productTableBody">
+                            <%  users.forEach((user, index) => { %>
+                                <tr>
+                                  <% if (UserData._id.toString() !== user._id.toString()) { %>
+                                    <td><%= user.id %></td>
+                                    <td><img src="/images/users/<%= user.image %>" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover;"></td>
+                                    <td><%= user.username %></td>
+                                    <td><%= user.firstname %> <%= user.lastname %></td>
+                                    <td><%= user.role %></td>
+                                    <td><%= user.email %></td>
+                                    <td><%= user.phone %></td>
+                                    <td><%= UserData.formattedCreatedDate %></td>
+                                    <td>
+                                      <% if (user.role === 'พนักงาน') { %>
+                                      <form action="users/editU/<%= user._id %>" method="POST">
+                                          <input type="text" name="edit_id" value="<%= user.id %>" hidden>
+                                          <button type="submit" class="btn btn-warning">
+                                              <i class="mdi mdi-border-color"></i>
+                                          </button>
+                                      </form>
+                                  </td>
+                                  <td>
+                                      <!-- Show Delete button only if the user is not the owner -->
+                                      <a href="#" class="btn btn-danger" onclick="confirmDelete('<%= user._id %>')">
+                                          <i class="mdi mdi-delete"></i>
+                                      </a>
+                                  <% } else {%>      
+                                    <td>
+                                  </td>
+                                  <% } %>                            
+                                      <script>
+                                        function confirmDelete(userId) {
+                                          Swal.fire({
+                                            title: 'คุณต้องการลบหรือไม่ ?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            cancelButtonText: 'ยกเลิก',
+                                            confirmButtonText: 'ใช่',
+                                            reverseButtons: true
+                                          }).then((result) => {
+                                            if (result.isConfirmed) {
+                                              window.location.href = '/users/deleteU/' + userId;
+                                            }
+                                          });
+                                          return false;
+                                        }
+                                      </script>
+                                    </td>
+                                    <% }%>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        </div>
+    </div
+
+
+    <%- include('layout/footerU') -%>
+  
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>
